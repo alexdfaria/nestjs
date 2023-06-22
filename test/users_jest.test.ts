@@ -1,5 +1,5 @@
-import { UsersService } from '../src/users/users.service';
-import { FirestoreService } from '../src/firestore/firestore.service';
+import { UsersService } from '../src/services/users.service';
+import { FirestoreService } from '../src/services/firestore.service';
 import { CreateUserDto, LoginUserDto } from '../src/dto/user.dto';
 import { PreferencesDto } from 'src/dto/preferences.dto';
 import * as bcrypt from 'bcrypt';

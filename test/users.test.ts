@@ -1,7 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
-import { UsersService } from '../src/users/users.service';
+import { UsersService } from '../src/services/users.service';
 
 // Set the path to the firebase-adminsdk.json file
 const credentialsPath = 'firebase-adminsdk.json';
