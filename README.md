@@ -28,10 +28,15 @@
 
 ## Installation
 
+### Step 1
 ```bash
 $ npm install
 ```
 
+### Step 2
+#### You will also need to upload the following files to the project root:
+- `.env`: This file contains environment variables required for your project. Make sure to configure it appropriately.
+- `firebase-adminsdk.json`: This JSON file is necessary for connecting to the Firebase Admin SDK. Ensure it is properly configured and contains the required credentials.
 ## Running the app
 
 ```bash
@@ -45,17 +50,119 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API Documentation & Usage 
+
+#### Updates User preferences *
+
+```http
+  POST /v1/user/preferences
+```
+
+| Parameter   | Type       | Observations                           |
+| :---------- | :--------- | :---------------------------------- |
+| `terms` | `boolean` | Mandatory |
+| `languages` | `string[]` | Mandatory |
+| `showsLanguages` | `boolean` | Mandatory |
+| `showsProfile` | `boolean` | Mandatory |
+
+##### * Also requires a valid Bearer authentication token
+
+---
+
+#### Create an User
+
+```http
+  POST /v1/user/register
+```
+
+| Parameter   | Type       | Observations                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `string` | Valid email |
+| `password` | `string` | More than 3 caracters |
+
+##### Response:
+`{ message: 'User registered successfully', userID }`
+
+---
+
+#### Login the User
+
+```http
+  POST /v1/user/login
+```
+
+| Parameter   | Type       | Observations                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `string` | Valid and registered email |
+| `password` | `string` | Correct password |
+
+##### Response:
+`{ token }`
+
+---
+
+#### Gets the User preferences
+
+```http
+  GET /v1/user/preferences
+```
+
+##### **Only requires the valid Bearer authentication token**
+
+##### Response:
+```
+{
+    "preferences": {
+        "languages": [
+            "en",
+            "it"
+        ],
+        "terms": true,
+        "showLanguages": false,
+        "showProfile": true
+    }
+}
+```
+
+---
+
+## Folder Structure Conventions
+============================
+
+```bash
+├── src    
+│    ├── auth
+│    ├── controllers
+│    │   ├── users.controller.ts
+│    │   └── ...
+│    ├── dto
+│    │   ├── preferences.dto.ts
+│    │   └── user.dto.ts
+│    ├── modules
+│    │   ├── auth.module.ts
+│    │   └── users.module.ts
+│    ├── services
+│    │   ├── users.service.ts
+│    │   └── ...
+│    ├── app.ts
+│    └── ...
+├── .env 
+├── .gitignore 
+├── cucumber-config.ts 
+├── Dockerfile 
+├── firebase-adminsdk.json 
+├── package-json 
+├── README.md 
+├── ...
+...
+```
+
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ npx jest
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 ## Support
